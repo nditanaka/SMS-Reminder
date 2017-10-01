@@ -1,12 +1,9 @@
 import twilio
 import requests
 import bs4
-import secrets
-
 
 URL = 'http://apply.co.zw/'
 MESSAGE = 'Apply Zimbabwe added a new opportunity!'
-
 
 def main():
 
@@ -15,7 +12,7 @@ def main():
     f.close()
 
     if (scrapeSite(URL, current) is True):
-        sendAlert()
+        SMS()
 
 
 def scrapeSite(url, current):
@@ -31,9 +28,11 @@ def scrapeSite(url, current):
 
     return False
 
-def sendAlert():
+def SMS():
     try:
-        client = twilio.rest.TwilioRestClient(secrets.TWILIO_ID, secrets.TWILIO_TOKEN)
+        account_sid = "ACb8d67922605d8e4d22134bbbe8f3a319"
+        auth_token = "18ffe2ba3721b596b8aee41c19818f6e"
+        client = (account_sid, auth_token)
         message = client.messages.create(
             to="+13302016997",
             from_="+13307654154",
@@ -46,14 +45,4 @@ def sendAlert():
 
 if __name__ == "__main__": main()
 
-# Sending an SMS using the Twilio API
-from twilio.rest import Client
-# put your own credentials here
-account_sid = "AC5ef872f6da5a21de157d80997a64bd33"
-auth_token = "your_auth_token"
-client = Client(account_sid, auth_token)
-client.messages.create(
-  to="+13302016997",
-  from_="+13307654154",
-  body="Check your calendar for your next appointment Tanaka",
-  media_url="https://climacons.herokuapp.com/clear.png")
+SMS()
