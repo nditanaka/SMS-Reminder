@@ -1,3 +1,8 @@
+import twilio
+import requests
+import bs4
+import secrets
+
 # Sending an SMS using the Twilio API
 from twilio.rest import Client
 # put your own credentials here
